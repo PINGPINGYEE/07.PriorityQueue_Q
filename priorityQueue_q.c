@@ -17,31 +17,31 @@ typedef struct heapType
 	int heap_size;
 } HeapType;
 
-// heap Á¦ÀÛ
+// heap ì œì‘
 HeapType* create()
 {
 	return (HeapType*)malloc(sizeof(HeapType));
 }
 
-// heap ÃÊ±âÈ­
+// heap ì´ˆê¸°í™”
 void init(HeapType* h)
 {
 	h->heap_size = 0;
 }
 
-// heap°¡ ºñ¾ú´ÂÁö È®ÀÎ
+// heapê°€ ë¹„ì—ˆëŠ”ì§€ í™•ì¸
 int is_empty(HeapType* h)
 {
 	return (h->heap_size == 0);
 }
 
-// heap°¡ ²Ë Ã¡´ÂÁö È®ÀÎ
+// heapê°€ ê½‰ ì°¼ëŠ”ì§€ í™•ì¸
 int is_full(HeapType* h)
 {
 	return(h->heap_size == (MAX_ELEMENT - 1));
 }
 
-// ·¹º§ Ãâ·Â ÇÔ¼ö
+// ë ˆë²¨ ì¶œë ¥ í•¨ìˆ˜
 int print_level_heap(HeapType* h) {
 	int k = 1;
 	for (int i = 1; i < h->heap_size + 1; i++)
@@ -60,7 +60,7 @@ int print_level_heap(HeapType* h) {
 	}
 }
 
-// Ãâ·Â ÇÔ¼ö
+// ì¶œë ¥ í•¨ìˆ˜
 int print_heap(HeapType* h) {
 	for (int i = 1; i < h->heap_size + 1; i++)
 	{
@@ -68,7 +68,7 @@ int print_heap(HeapType* h) {
 	}
 }
 
-// ±âº» ±¸¼º
+// ê¸°ë³¸ êµ¬ì„±
 void basic_insert_heap(HeapType* h, element item)
 {
 	int i = ++(h->heap_size);
@@ -80,11 +80,11 @@ void basic_insert_heap(HeapType* h, element item)
 	h->heap[i] = item;
 }
 
-// ÀÔ·Â ÇÔ¼ö
+// ì…ë ¥ í•¨ìˆ˜
 void insert_heap(HeapType* h, element item) {
 	if (is_full(&h))
 	{
-		printf("heap°¡ ²Ë Ã¡½À´Ï´Ù.");
+		printf("heapê°€ ê½‰ ì°¼ìŠµë‹ˆë‹¤.");
 		return;
 	}
 	int i = ++(h->heap_size);
@@ -101,7 +101,7 @@ void insert_heap(HeapType* h, element item) {
 	h->heap[i] = item;
 }
 
-// »èÁ¦ ÇÔ¼ö
+// ì‚­ì œ í•¨ìˆ˜
 element delete_heap(HeapType* h)
 {
 	cnt = 0;
@@ -109,11 +109,11 @@ element delete_heap(HeapType* h)
 	element item, temp;
 	if (is_empty(h))
 	{
-		printf("heap°¡ ºñ¾ú½À´Ï´Ù.");
+		printf("heapê°€ ë¹„ì—ˆìŠµë‹ˆë‹¤.");
 		return;
 	}
-	item = h->heap[1]; // Ã¹ ³ëµå·Î item ¼³Á¤
-	temp = h->heap[(h->heap_size)--]; // temp¸¦ ¸¶Áö¸· ³ëµå·Î ¼³Á¤
+	item = h->heap[1]; // ì²« ë…¸ë“œë¡œ item ì„¤ì •
+	temp = h->heap[(h->heap_size)--]; // tempë¥¼ ë§ˆì§€ë§‰ ë…¸ë“œë¡œ ì„¤ì •
 	parent = 1;
 	child = 2;
 	while (child <= h->heap_size) {
@@ -121,8 +121,8 @@ element delete_heap(HeapType* h)
 		print_heap(h);
 		printf("\n");
 		if ((child < h->heap_size) && (h->heap[child].key) < h->heap[child + 1].key) child++;
-		// ÀÚ½Ä ³ëµå°¡ ÇÏ³ªÀÏ ¶§ ++¾ÈµÇ°Ô, ÀÚ½Ä ³ëµå°¡ µÎ°³ÀÏ ¶§´Â Å« ¼ö ÀÎµ¦½º·Î child ¼³Á¤
-		if (temp.key >= h->heap[child].key) break; // temp°ªÀÌ ÇöÀç heap°ªº¸´Ù Å©°Å³ª °°À¸¸é break
+		// ìì‹ ë…¸ë“œê°€ í•˜ë‚˜ì¼ ë•Œ ++ì•ˆë˜ê²Œ, ìì‹ ë…¸ë“œê°€ ë‘ê°œì¼ ë•ŒëŠ” í° ìˆ˜ ì¸ë±ìŠ¤ë¡œ child ì„¤ì •
+		if (temp.key >= h->heap[child].key) break; // tempê°’ì´ í˜„ì¬ heapê°’ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ìœ¼ë©´ break
 		h->heap[parent] = h->heap[child];
 		parent = child;
 		child *= 2;
@@ -131,7 +131,7 @@ element delete_heap(HeapType* h)
 	return item;
 }
 
-
+// ë©”ì¸ í•¨ìˆ˜
 int main()
 {
 	element e1 = { 90 }, e2 = { 89 }, e3 = { 70 }, e4 = { 36 }, e5 = { 75 }, e6 = { 63 },
@@ -154,10 +154,10 @@ int main()
 	basic_insert_heap(heap, e10);
 
 	printf(" ---------------------------------------\n");
-	printf("| i : ³ëµå Ãß°¡                         | \n");
-	printf("| d : ³ëµå »èÁ¦                         | \n");
-	printf("| p : ·¹º§º° Ãâ·Â                       | \n");
-	printf("| c : Á¾·á                              | \n");
+	printf("| i : ë…¸ë“œ ì¶”ê°€                         | \n");
+	printf("| d : ë…¸ë“œ ì‚­ì œ                         | \n");
+	printf("| p : ë ˆë²¨ë³„ ì¶œë ¥                       | \n");
+	printf("| c : ì¢…ë£Œ                              | \n");
 	printf(" ---------------------------------------\n");
 
 	char choice = ' ';
@@ -165,36 +165,36 @@ int main()
 
 	while(choice != 'q')
 	{
-		printf("\n¸Ş´º ÀÔ·Â: ");
+		printf("\në©”ë‰´ ì…ë ¥: ");
 		scanf_s(" %c", &choice);
 
 		switch (choice)
 		{
 		case 'i':
-			printf("Ãß°¡ÇÒ °ª ÀÔ·Â: ");
+			printf("ì¶”ê°€í•  ê°’ ì…ë ¥: ");
 			scanf_s("%d", &item);
 			insert_heap(heap, item);
 			print_heap(heap);
-			printf("\n³ëµå°¡ ÀÌµ¿ÇÑ È½¼ö %d\n", cnt); 
+			printf("\në…¸ë“œê°€ ì´ë™í•œ íšŸìˆ˜ %d\n", cnt); 
 			break;
 		case 'd':
 			delete_heap(heap);
 			print_heap(heap);
-			printf("\n³ëµå°¡ ÀÌµ¿ÇÑ È½¼ö %d\n", cnt);
+			printf("\në…¸ë“œê°€ ì´ë™í•œ íšŸìˆ˜ %d\n", cnt);
 			break;
 		case 'p':
-			printf("Æ®¸® ·¹º§º° Ãâ·Â\n");
+			printf("íŠ¸ë¦¬ ë ˆë²¨ë³„ ì¶œë ¥\n");
 			print_level_heap(heap);
 			break;
 		case 'q':
 			break;
 		default:
-			printf("´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä\n");
+			printf("ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”\n");
 			continue;
 		}
 	}
 
-	printf("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.\n");
+	printf("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.\n");
 	free(heap);
 	return 0;
 }
